@@ -1,5 +1,7 @@
 package com.santander.juniores2.venda.service;
 
+import com.santander.juniores2.exception.EstoqueException;
+import com.santander.juniores2.exception.ProdutoException;
 import com.santander.juniores2.produto.model.Produto;
 import com.santander.juniores2.produto.repository.ProdutoRepository;
 import com.santander.juniores2.venda.dto.ItemVendaRequestDTO;
@@ -29,10 +31,14 @@ public class VendaService {
 
         for (ItemVendaRequestDTO itemDTO : dto.itens()) {
             Produto produto = produtoRepository.findById(itemDTO.produtoId())
-                    .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+                    .orElseThrow(() -> new ProdutoException("Produto não encontrado"));
 
             if (produto.getEstoque() < itemDTO.quantidade()) {
-                throw new RuntimeException("Estoque insuficiente");
+                throw new EstoqueException("Estoque insuficiente");
+            }
+
+            if (produto.getEstoque() <= 0) {
+                throw new EstoqueException("Quantidade deve ser maior que 0");
             }
 
             produto.setEstoque(produto.getEstoque() - itemDTO.quantidade());

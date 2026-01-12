@@ -8,20 +8,25 @@ import java.math.BigDecimal;
 
 public record EbookRequestDTO(
 
-        @NotBlank
+        @NotBlank(message = "Campo título é obrigatório")
         String titulo,
-        @NotBlank
+
+        @NotBlank(message = "Campo autor é obrigatório")
         String autor,
-        @NotBlank
+
+        @NotBlank(message = "Campo editora é obrigatório")
         String editora,
-        @NotBlank
-        @Positive
+
+        @NotNull(message = "Campo estoque é obrigatório")
+        @Positive(message = "Quantidade do estoque inválida")
         Integer estoque,
-        @NotBlank
-        @Positive
+
+        @NotNull(message = "Campo preço é obrigatório")
+        @Positive(message = "Valor do preço inválido")
         BigDecimal precoBase,
-        @NotBlank
-        @Positive
+
+        @NotNull(message = "Campo tamanho do arquivo é obrigatório")
+        @Positive(message = "Tamanho do arquivo inválido")
         Long tamanhoArquivoMb) {
 
 }

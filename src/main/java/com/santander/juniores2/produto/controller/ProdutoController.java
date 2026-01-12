@@ -5,6 +5,7 @@ import com.santander.juniores2.produto.dto.EbookRequestDTO;
 import com.santander.juniores2.produto.dto.LivroFisicoRequestDTO;
 import com.santander.juniores2.produto.dto.ProdutoResponseDTO;
 import com.santander.juniores2.produto.service.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,13 +23,13 @@ public class ProdutoController {
 
     @PostMapping("/fisicos")
     @Transactional
-    public ProdutoResponseDTO criarFisico(@RequestBody LivroFisicoRequestDTO dto) {
+    public ProdutoResponseDTO criarFisico(@Valid @RequestBody LivroFisicoRequestDTO dto) {
         return  service.criarFisico(dto);
     }
 
     @PostMapping("/digitais")
     @Transactional
-    public ProdutoResponseDTO criarFisico(@RequestBody EbookRequestDTO dto) {
+    public ProdutoResponseDTO criarFisico(@Valid @RequestBody EbookRequestDTO dto) {
         return  service.criarEbook(dto);
     }
 

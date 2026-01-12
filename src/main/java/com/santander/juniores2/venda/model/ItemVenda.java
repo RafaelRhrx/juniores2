@@ -1,5 +1,6 @@
 package com.santander.juniores2.venda.model;
 
+import com.santander.juniores2.exception.VendaException;
 import com.santander.juniores2.produto.model.Produto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class ItemVenda {
 
     public ItemVenda(Produto produto, Integer quantidade) {
         if (quantidade <= 0) {
-            throw new IllegalArgumentException("Quantidade inválida");
+            throw new VendaException("Quantidade inválida");
         }
 
         this.produto = produto;

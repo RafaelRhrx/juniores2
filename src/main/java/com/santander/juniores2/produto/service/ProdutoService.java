@@ -1,5 +1,7 @@
 package com.santander.juniores2.produto.service;
 
+import com.santander.juniores2.exception.EstoqueException;
+import com.santander.juniores2.exception.ProdutoException;
 import com.santander.juniores2.produto.dto.AtualizarEstoqueDTO;
 import com.santander.juniores2.produto.dto.EbookRequestDTO;
 import com.santander.juniores2.produto.dto.LivroFisicoRequestDTO;
@@ -37,10 +39,10 @@ public class ProdutoService {
 
     public ProdutoResponseDTO atualizarEstoque(Long id, AtualizarEstoqueDTO dto) {
         Produto produto = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+                .orElseThrow(() -> new ProdutoException("Produto não encontrado"));
 
         if (dto.quantidade() < 0) {
-            throw new IllegalArgumentException("Estoque não pode ser negativo");
+            throw new EstoqueException("Estoque não pode ser negativo");
         }
 
         produto.setEstoque(dto.quantidade());
